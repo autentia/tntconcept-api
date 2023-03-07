@@ -27,7 +27,7 @@ internal class VacationMailService(
         }
 
         if (appProperties.binnacle.vacationsApprovers.isEmpty()) {
-            print("No vacations approvers specified)")
+            logger.warn("No vacations approvers specified)")
             return
         }
 
