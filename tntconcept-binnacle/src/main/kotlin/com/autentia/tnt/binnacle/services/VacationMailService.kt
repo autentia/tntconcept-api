@@ -26,11 +26,6 @@ internal class VacationMailService(
             return
         }
 
-        if (appProperties.binnacle.vacationsApprovers.isEmpty()) {
-            logger.warn("No vacations approvers specified)")
-            return
-        }
-
         val body = messageSource
             .getMessage(
                 "mail.request.vacations.template",
