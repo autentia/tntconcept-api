@@ -57,7 +57,9 @@ class AttachmentInfoDaoIT {
 
     @Test
     fun `should delete all temporary attachments from a list`() {
-        attachmentInfoDao.delete(listOf(attachmentId))
+        val savedAttachment = attachmentInfoDao.save(createAttachmentInfoEntity())
+
+        attachmentInfoDao.delete(listOf(savedAttachment.id))
 
         assertThat(attachmentInfoDao.findById(attachmentId).isEmpty)
     }

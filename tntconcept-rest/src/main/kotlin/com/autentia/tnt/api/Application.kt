@@ -1,6 +1,7 @@
 package com.autentia.tnt.api
 
 import com.autentia.tnt.api.OpenApiTag.Companion.ACTIVITY
+import com.autentia.tnt.api.OpenApiTag.Companion.EXPENSE
 import com.autentia.tnt.api.OpenApiTag.Companion.SECURITY
 import io.micronaut.openapi.annotation.OpenAPIInclude
 import io.micronaut.runtime.Micronaut
@@ -14,11 +15,12 @@ import java.util.*
 @OpenAPIDefinition(
     info = Info(
         title = "tntconcept API",
-        version = "0.0.1"
+        version = "1.26.0"
     ),
     tags = [
         Tag(name = SECURITY, description = "Security related endpoints."),
         Tag(name = ACTIVITY, description = "Activity related endpoints."),
+        Tag(name = EXPENSE, description = "Expense sheet related endpoints."),
     ],
     servers = [Server(url = "http://localhost:8080/")]
 )

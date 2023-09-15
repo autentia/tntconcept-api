@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: tntconcept API
-  version: 0.0.1
+  version: 1.26.0
 servers:
 - url: http://localhost:8080/
 tags:
@@ -9,6 +9,8 @@ tags:
   description: Security related endpoints.
 - name: activity
   description: Activity related endpoints.
+- name: expense
+  description: Expense sheet related endpoints.
 paths:
   /api-hook/activity:
     get:
@@ -386,6 +388,28 @@ paths:
               schema:
                 type: integer
                 format: int32
+  /api/expense:
+    get:
+      tags:
+      - expense
+      summary: Gets expense with specified filters
+      operationId: get$tntconcept_rest_3
+      parameters:
+      - name: filterRequest
+        in: query
+        required: true
+        explode: true
+        schema:
+          $ref: '#/components/schemas/ExpenseFilterRequest'
+      responses:
+        "200":
+          description: get$tntconcept_rest 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpenseResponse'
   /api/holidays:
     get:
       summary: Retrieves existing holidays within a period
@@ -639,7 +663,7 @@ paths:
   /api/user:
     get:
       summary: Retrieves the list of active users
-      operationId: get$tntconcept_rest_3
+      operationId: get$tntconcept_rest_4
       responses:
         "200":
           description: get$tntconcept_rest 200 response
@@ -1081,6 +1105,60 @@ components:
         chargeYear:
           type: integer
           format: int32
+    ExpenseFilterRequest:
+      type: object
+      properties:
+        startDate:
+          pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$"
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$"
+          type: string
+          format: date-time
+          nullable: true
+        state:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/ApprovalState'
+        userId:
+          type: integer
+          format: int64
+          nullable: true
+    ExpenseResponse:
+      required:
+      - amount
+      - date
+      - description
+      - documents
+      - id
+      - state
+      - type
+      - userId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date-time
+        description:
+          type: string
+        amount:
+          type: number
+        userId:
+          type: integer
+          format: int64
+        state:
+          type: string
+        type:
+          type: string
+        documents:
+          type: array
+          items:
+            type: string
     HolidayDetailsResponse:
       required:
       - date

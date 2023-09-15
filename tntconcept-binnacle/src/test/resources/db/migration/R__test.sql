@@ -116,4 +116,31 @@ VALUES (9, 3, '2023-04-24', null, 0, 'Closed project for testing', '', null, nul
 -- Attachment
 INSERT INTO Attachment (id, userId, path, fileName, mimeType, uploadDate, isTemporary)
 VALUES ('4d3cbe3f-369f-11ee-99c2-0242ac180003', 11, 'path/to/test/file', 'testFile,jpg', 'image/jpeg',
-        NOW(), TRUE);
+        '2023-08-17 00:00:00', TRUE);
+
+
+INSERT INTO Expense (id, userId, date, description, amount, type, state)
+VALUES (1, 1, '2023-08-17 00:00:00', 'Expense for tests', 10.0, 'MARKETING', 'PENDING');
+
+INSERT INTO Expense (id, userId, date, description, amount, type, state)
+VALUES (2, 1, '2023-08-18 00:00:00', 'Expense for tests', 10.0, 'MARKETING', 'ACCEPTED');
+
+INSERT INTO ExpenseDocument (expenseId, attachmentId, insertDate)
+VALUES (2, '4d3cbe3f-369f-11ee-99c2-0242ac180003', '2023-08-17 00:00:00');
+
+
+INSERT INTO Expense (id, userId, date, description, amount, type, state)
+VALUES (3, 1, '2023-08-19 00:00:00', 'Expense for tests', 30.0, 'MARKETING', 'PENDING');
+
+INSERT INTO Expense (id, userId, date, description, amount, type, state)
+VALUES (4, 1, '2023-08-20 00:00:00', 'Expense for tests', 40.0, 'MARKETING', 'ACCEPTED');
+
+
+INSERT INTO Expense (id, userId, date, description, amount, type, state)
+VALUES (5, 11, '2023-08-19 00:00:00', 'Expense for tests', 30.0, 'MARKETING', 'PENDING');
+
+INSERT INTO Expense (id, userId, date, description, amount, type, state)
+VALUES (6, 11, '2023-08-20 00:00:00', 'Expense for tests', 40.0, 'MARKETING', 'ACCEPTED');
+
+
+
