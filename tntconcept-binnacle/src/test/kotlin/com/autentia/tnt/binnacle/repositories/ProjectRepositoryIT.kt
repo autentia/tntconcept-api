@@ -2,11 +2,14 @@ package com.autentia.tnt.binnacle.repositories
 
 import com.autentia.tnt.binnacle.entities.Organization
 import com.autentia.tnt.binnacle.entities.Project
-import com.autentia.tnt.binnacle.repositories.predicates.*
 import com.autentia.tnt.binnacle.repositories.predicates.PredicateBuilder
+import com.autentia.tnt.binnacle.repositories.predicates.ProjectOpenSpecification
+import com.autentia.tnt.binnacle.repositories.predicates.ProjectOrganizationIdSpecification
+import com.autentia.tnt.binnacle.repositories.predicates.ProjectOrganizationIdsSpecification
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
@@ -70,6 +73,22 @@ internal class ProjectRepositoryIT {
         val result = projectRepository.findById(Long.MAX_VALUE)
 
         assert(result.isEmpty)
+    }
+    @Test
+    fun `should block the open projects`(){
+        val date = LocalDate.of(2024,3,20)
+
+
+        val projectClosePreOperationDate = projectRepository.findById(9).get().blockDate
+        projectRepository.blockOpenProjects(date)
+
+        val projectOpen = projectRepository.findById(8)
+        val projectClosed = projectRepository.findById(9)
+
+        assert(projectOpen.get().blockDate == date)
+
+        assert(projectClosed.get().blockDate == projectClosePreOperationDate)
+
     }
     
     private companion object {

@@ -50,6 +50,12 @@ internal class AppProperties {
 
         var emptyActivitiesReminder = EmptyActivitiesReminderProperties()
 
+        var autoBlockProject = AutoBlockProjectProperties()
+        @ConfigurationProperties("auto-block-project")
+        internal class AutoBlockProjectProperties {
+            var cronExpression: String? = ""
+        }
+
         @ConfigurationProperties("work-summary")
         internal class WorkSummaryProperties {
             var persistenceEnabled: Boolean = false
